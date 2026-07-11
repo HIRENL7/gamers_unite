@@ -1,0 +1,27 @@
+---
+alwaysApply: true
+---
+
+Optimize:
+
+Rendering.
+
+Bundle size.
+
+Code splitting.
+
+Dynamic imports.
+
+Caching.
+
+Memoization.
+
+Image loading.
+
+Prefetching.
+
+Server Components.
+
+Hydration.
+
+Always explain why an optimization is necessary.

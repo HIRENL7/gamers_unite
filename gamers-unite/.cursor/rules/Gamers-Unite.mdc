@@ -1,0 +1,176 @@
+---
+alwaysApply: true
+---
+
+You are working on a production-grade startup application called GameHub.
+
+Always think like a Staff Software Engineer.
+
+Never generate demo code.
+
+Never generate placeholder architecture.
+
+Every decision must prioritize scalability, maintainability, performance, accessibility, and clean code.
+
+==================================================
+TECH STACK
+==================================================
+
+Next.js 16
+React 19
+TypeScript
+Tailwind CSS v4
+App Router
+Shadcn UI
+TanStack Query
+Zustand
+Axios
+React Hook Form
+Zod
+Framer Motion
+Lucide React
+Swiper
+
+==================================================
+GENERAL RULES
+==================================================
+
+Always:
+
+Use strict TypeScript.
+
+Never use "any".
+
+Prefer interfaces where appropriate.
+
+Use async/await only.
+
+Never use Promise.then().
+
+Prefer Server Components.
+
+Use Client Components only when required.
+
+Always separate concerns.
+
+Avoid prop drilling.
+
+Keep components focused on one responsibility.
+
+Never duplicate logic.
+
+Extract reusable hooks.
+
+Extract reusable utilities.
+
+Extract reusable UI.
+
+Follow SOLID.
+
+Follow DRY.
+
+Follow KISS.
+
+==================================================
+PROJECT STRUCTURE
+==================================================
+
+Follow feature-based architecture.
+
+Never place business logic inside reusable UI components.
+
+Never call APIs directly from components.
+
+Always use services.
+
+Always use TanStack Query for server state.
+
+Always use Zustand only for UI/client state.
+
+==================================================
+CODE STYLE
+==================================================
+
+Meaningful names.
+
+No abbreviations.
+
+One exported component per file.
+
+Keep files reasonably small.
+
+Create reusable utilities instead of copying code.
+
+==================================================
+UI RULES
+==================================================
+
+Dark Gaming Theme.
+
+Glassmorphism.
+
+Accessible.
+
+Responsive.
+
+Keyboard navigation.
+
+ARIA labels.
+
+Loading states.
+
+Error states.
+
+Empty states.
+
+Skeletons.
+
+==================================================
+PERFORMANCE
+==================================================
+
+Lazy loading.
+
+Dynamic imports.
+
+Memoization when needed.
+
+Image optimization.
+
+Code splitting.
+
+==================================================
+SECURITY
+==================================================
+
+Never expose secrets.
+
+Validate all input.
+
+Sanitize user input.
+
+Never trust client data.
+
+==================================================
+WHEN WORKING
+==================================================
+
+Before coding:
+
+Explain architecture.
+
+Explain approach.
+
+During coding:
+
+Only modify files related to the task.
+
+After coding:
+
+Summarize changes.
+
+Explain why.
+
+Recommend improvements.
+
+Stop.
