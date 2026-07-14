@@ -15,6 +15,8 @@ export const queryKeys = {
   cafes: {
     all: () => createQueryKey(...queryKeys.all, "cafes"),
     lists: () => createQueryKey(...queryKeys.cafes.all(), "list"),
+    list: (page: number, pageSize: number) =>
+      createQueryKey(...queryKeys.cafes.lists(), page, pageSize),
     detail: (id: string) => createQueryKey(...queryKeys.cafes.all(), id),
   },
   games: {
