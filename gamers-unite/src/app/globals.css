@@ -162,3 +162,59 @@
     cursor: pointer;
   }
 }
+
+@layer utilities {
+  .animate-enter {
+    animation: enter 180ms ease-out both;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 180ms ease-out both;
+  }
+
+  .animate-slide-down {
+    animation: slide-down 180ms ease-out both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-enter,
+    .animate-fade-in,
+    .animate-slide-down {
+      animation: none;
+    }
+  }
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
