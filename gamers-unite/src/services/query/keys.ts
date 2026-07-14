@@ -30,9 +30,13 @@ export const queryKeys = {
   reviews: {
     all: () => createQueryKey(...queryKeys.all, "reviews"),
     lists: () => createQueryKey(...queryKeys.reviews.all(), "list"),
+    list: (page: number, pageSize: number) =>
+      createQueryKey(...queryKeys.reviews.lists(), page, pageSize),
   },
   search: {
     all: () => createQueryKey(...queryKeys.all, "search"),
     results: (term: string) => createQueryKey(...queryKeys.search.all(), term),
+    infinite: (filters: string) =>
+      createQueryKey(...queryKeys.search.all(), "infinite", filters),
   },
 } as const;
