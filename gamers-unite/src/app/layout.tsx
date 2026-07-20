@@ -2,6 +2,13 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { PageWrapper } from "@/components/layout";
+import { createMetadata } from "@/lib/seo/create-metadata";
+import {
+  JsonLd,
+  createOrganizationJsonLd,
+  createWebsiteJsonLd,
+} from "@/lib/seo/json-ld";
+import { siteConfig } from "@/lib/seo/site-config";
 import { AppProvider } from "@/providers";
 
 import "./globals.css";
@@ -17,12 +24,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  ...createMetadata({
+    title: siteConfig.name,
+    description: siteConfig.description,
+    path: "/",
+  }),
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Gamers Unite",
-    template: "%s | Gamers Unite",
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
-  description:
-    "Discover gaming cafes, popular games, and trusted player reviews.",
+  applicationName: siteConfig.name,
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  category: "gaming",
 };
 
 export default function RootLayout({
@@ -37,6 +52,8 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background text-foreground">
+        <JsonLd data={createWebsiteJsonLd()} />
+        <JsonLd data={createOrganizationJsonLd()} />
         <AppProvider>
           <PageWrapper>{children}</PageWrapper>
         </AppProvider>

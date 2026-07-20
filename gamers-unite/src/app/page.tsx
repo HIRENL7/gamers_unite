@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 
 import { Container, Section } from "@/components/layout";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -118,15 +118,16 @@ function HeroSection() {
             and read reviews from players who care about the same setup you do.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button size="lg" asChild>
-              <Link href="/cafes">
-                Explore cafes
-                <ArrowRight aria-hidden="true" />
-              </Link>
-            </Button>
-            <Button variant="outline" size="lg" asChild>
-              <Link href="/games">Browse games</Link>
-            </Button>
+            <Link href="/cafes" className={buttonVariants({ size: "lg" })}>
+              Explore cafes
+              <ArrowRight aria-hidden="true" />
+            </Link>
+            <Link
+              href="/games"
+              className={buttonVariants({ variant: "outline", size: "lg" })}
+            >
+              Browse games
+            </Link>
           </div>
         </div>
 
@@ -248,9 +249,12 @@ function FeaturedCafesSection() {
                   <Star aria-hidden="true" className="size-4 fill-current" />
                   {cafe.rating}
                 </span>
-                <Button variant="ghost" size="sm" asChild>
-                  <Link href="/cafes">Details</Link>
-                </Button>
+                <Link
+                  href="/cafes"
+                  className={buttonVariants({ variant: "ghost", size: "sm" })}
+                >
+                  Details
+                </Link>
               </CardFooter>
             </Card>
           ))}
@@ -355,9 +359,12 @@ function MembershipBanner() {
               into tournaments and member-only sessions.
             </p>
           </div>
-          <Button variant="secondary" size="lg" asChild>
-            <Link href="/membership">Become a member</Link>
-          </Button>
+          <Link
+            href="/membership"
+            className={buttonVariants({ variant: "secondary", size: "lg" })}
+          >
+            Become a member
+          </Link>
         </div>
       </Container>
     </Section>
@@ -381,12 +388,15 @@ function CtaSection() {
             from plan to play short.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button size="lg" asChild>
-              <Link href="/search">Start searching</Link>
-            </Button>
-            <Button variant="outline" size="lg" asChild>
-              <Link href="/reviews">See top reviews</Link>
-            </Button>
+            <Link href="/search" className={buttonVariants({ size: "lg" })}>
+              Start searching
+            </Link>
+            <Link
+              href="/reviews"
+              className={buttonVariants({ variant: "outline", size: "lg" })}
+            >
+              See top reviews
+            </Link>
           </div>
         </div>
       </Container>
@@ -414,12 +424,10 @@ function SectionHeader({
         <h2 className="mt-2 text-heading-2 font-semibold">{title}</h2>
         <p className="mt-3 text-body text-muted-foreground">{description}</p>
       </div>
-      <Button variant="outline" asChild>
-        <Link href={href}>
-          {action}
-          <ArrowRight aria-hidden="true" />
-        </Link>
-      </Button>
+      <Link href={href} className={buttonVariants({ variant: "outline" })}>
+        {action}
+        <ArrowRight aria-hidden="true" />
+      </Link>
     </div>
   );
 }

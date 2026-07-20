@@ -32,7 +32,8 @@ function isCafe(value: unknown): value is Cafe {
     cafeCrowdLevels.includes(
       cafe.crowdLevel as (typeof cafeCrowdLevels)[number]
     ) &&
-    typeof cafe.heroTone === "string"
+    typeof cafe.heroTone === "string" &&
+    (cafe.imageUrl === undefined || typeof cafe.imageUrl === "string")
   );
 }
 

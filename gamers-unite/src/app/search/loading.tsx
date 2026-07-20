@@ -1,30 +1,9 @@
-import type { Metadata } from "next";
-import { Suspense } from "react";
-
 import { Container, Section } from "@/components/layout";
-import { SearchView } from "@/lib/lazy/feature-views";
-import { createMetadata } from "@/lib/seo/create-metadata";
 
-export const metadata: Metadata = createMetadata({
-  title: "Search",
-  description:
-    "Search mock gaming cafes, games, and reviews with filters, sorting, and infinite scrolling.",
-  path: "/search",
-  keywords: ["gaming cafe search", "game cafe filters"],
-});
-
-export default function SearchPage() {
-  return (
-    <Suspense fallback={<SearchPageFallback />}>
-      <SearchView />
-    </Suspense>
-  );
-}
-
-function SearchPageFallback() {
+export default function SearchLoading() {
   return (
     <Section>
-      <Container>
+      <Container aria-label="Loading search">
         <div className="grid gap-4">
           <div className="h-12 max-w-3xl animate-pulse rounded-lg bg-muted" />
           <div className="grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)]">

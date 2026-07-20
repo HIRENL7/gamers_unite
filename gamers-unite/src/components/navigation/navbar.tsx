@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Menu, Search } from "lucide-react";
 import * as React from "react";
 
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 import { cn } from "@/lib/utils";
 
@@ -57,19 +57,24 @@ function Navbar({
 
         <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
           {items.map((item) => (
-            <Button key={item.href} variant="ghost" size="sm" asChild>
-              <Link href={item.href}>{item.label}</Link>
-            </Button>
+            <Link
+              key={item.href}
+              href={item.href}
+              className={buttonVariants({ variant: "ghost", size: "sm" })}
+            >
+              {item.label}
+            </Link>
           ))}
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
-          <Button variant="outline" size="sm" asChild>
-            <Link href={action.href}>
-              <Search aria-hidden="true" />
-              {action.label}
-            </Link>
-          </Button>
+          <Link
+            href={action.href}
+            className={buttonVariants({ variant: "outline", size: "sm" })}
+          >
+            <Search aria-hidden="true" />
+            {action.label}
+          </Link>
         </div>
 
         <details className="group relative md:hidden">

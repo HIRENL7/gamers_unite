@@ -27,6 +27,7 @@ export type Cafe = {
   amenities: CafeAmenity[];
   crowdLevel: CafeCrowdLevel;
   heroTone: string;
+  imageUrl?: string;
 };
 
 export type CafeListParams = {

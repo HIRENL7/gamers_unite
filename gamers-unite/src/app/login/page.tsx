@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { AuthShell } from "@/features/auth/components/auth-shell";
-import { LoginForm } from "@/features/auth/components/login-form";
+import { LoginForm } from "@/lib/lazy/feature-views";
 
 export const metadata: Metadata = {
   title: "Login",

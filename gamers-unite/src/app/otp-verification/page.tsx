@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { AuthShell } from "@/features/auth/components/auth-shell";
-import { OtpVerificationForm } from "@/features/auth/components/otp-verification-form";
+import { OtpVerificationForm } from "@/lib/lazy/feature-views";
 
 export const metadata: Metadata = {
   title: "OTP Verification",

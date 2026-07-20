@@ -1,6 +1,7 @@
 import { Clock, MapPin, MonitorUp, Star } from "lucide-react";
+import type { KeyboardEvent } from "react";
 
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 import type { Cafe } from "@/features/cafes/types/cafe";
 import {
   formatCafeLocation,
@@ -23,15 +25,47 @@ type CafeCardProps = {
 };
 
 function CafeCard({ cafe, isSelected = false, onSelect }: CafeCardProps) {
+  function handleSelect() {
+    onSelect?.(cafe);
+  }
+
+  function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      handleSelect();
+    }
+  }
+
   return (
     <Card
+      role="button"
+      tabIndex={0}
+      aria-pressed={isSelected}
+      onClick={handleSelect}
+      onKeyDown={handleKeyDown}
       className={cn(
-        "rounded-lg transition-all hover:-translate-y-0.5 hover:shadow-md",
+        "cursor-pointer rounded-lg transition-all hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         isSelected && "ring-2 ring-primary"
       )}
     >
-      <div className={cn("h-24 bg-gradient-to-br", cafe.heroTone)}>
-        <div className="grid h-full grid-cols-6 gap-2 p-3" aria-hidden="true">
+      <div
+        className={cn(
+          "relative h-32 overflow-hidden bg-gradient-to-br",
+          cafe.heroTone
+        )}
+      >
+        <OptimizedImage
+          src={cafe.imageUrl}
+          alt={`${cafe.name} gaming cafe setup`}
+          fill
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          className="object-cover opacity-85"
+          fallbackClassName={cn("h-full bg-gradient-to-br", cafe.heroTone)}
+        />
+        <div
+          className="absolute inset-0 grid grid-cols-6 gap-2 bg-zinc-950/30 p-3"
+          aria-hidden="true"
+        >
           {Array.from({ length: 12 }).map((_, index) => (
             <span
               key={index}
@@ -83,12 +117,13 @@ function CafeCard({ cafe, isSelected = false, onSelect }: CafeCardProps) {
             {cafe.crowdLevel} crowd
           </p>
         </div>
-        <Button
-          variant={isSelected ? "default" : "outline"}
-          onClick={() => onSelect?.(cafe)}
+        <span
+          className={buttonVariants({
+            variant: isSelected ? "default" : "outline",
+          })}
         >
-          Details
-        </Button>
+          {isSelected ? "Selected" : "Details"}
+        </span>
       </CardFooter>
     </Card>
   );

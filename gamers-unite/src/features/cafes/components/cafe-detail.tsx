@@ -14,6 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 import type { Cafe } from "@/features/cafes/types/cafe";
 import {
   formatCafeLocation,
@@ -30,8 +31,22 @@ function CafeDetail({ cafe }: CafeDetailProps) {
   return (
     <aside className="sticky top-20 grid gap-4 self-start">
       <Card className="rounded-lg">
-        <div className={cn("h-40 bg-gradient-to-br", cafe.heroTone)}>
-          <div className="flex h-full items-end p-4 text-white">
+        <div
+          className={cn(
+            "relative h-48 overflow-hidden bg-gradient-to-br",
+            cafe.heroTone
+          )}
+        >
+          <OptimizedImage
+            src={cafe.imageUrl}
+            alt={`${cafe.name} gaming cafe interior`}
+            fill
+            priority
+            sizes="(min-width: 1024px) 24rem, 100vw"
+            className="object-cover"
+            fallbackClassName={cn("h-full bg-gradient-to-br", cafe.heroTone)}
+          />
+          <div className="absolute inset-0 flex items-end bg-zinc-950/45 p-4 text-white">
             <div>
               <p className="text-sm font-medium text-white/75">
                 {formatCafeLocation(cafe)}

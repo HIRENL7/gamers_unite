@@ -28,6 +28,8 @@ const mockCafes: Cafe[] = [
     amenities: ["High-refresh PCs", "Tournament nights", "Food service"],
     crowdLevel: "Busy",
     heroTone: "from-emerald-500 via-zinc-950 to-sky-500",
+    imageUrl:
+      "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: "checkpoint-social",
@@ -47,6 +49,8 @@ const mockCafes: Cafe[] = [
     amenities: ["Console pods", "Board games", "Food service"],
     crowdLevel: "Balanced",
     heroTone: "from-sky-500 via-zinc-950 to-rose-500",
+    imageUrl:
+      "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: "respawn-lounge",
@@ -66,6 +70,8 @@ const mockCafes: Cafe[] = [
     amenities: ["Private rooms", "Streaming booths", "High-refresh PCs"],
     crowdLevel: "Quiet",
     heroTone: "from-rose-500 via-zinc-950 to-amber-400",
+    imageUrl:
+      "https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: "mana-bar",
@@ -85,6 +91,8 @@ const mockCafes: Cafe[] = [
     amenities: ["Console pods", "Board games", "Food service"],
     crowdLevel: "Balanced",
     heroTone: "from-violet-500 via-zinc-950 to-emerald-500",
+    imageUrl:
+      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: "lag-free-lab",
@@ -104,6 +112,8 @@ const mockCafes: Cafe[] = [
     amenities: ["High-refresh PCs", "Coaching desk", "Tournament nights"],
     crowdLevel: "Busy",
     heroTone: "from-cyan-500 via-zinc-950 to-lime-400",
+    imageUrl:
+      "https://images.unsplash.com/photo-1603481546238-487240415921?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: "arcade-atlas",
@@ -123,6 +133,8 @@ const mockCafes: Cafe[] = [
     amenities: ["Console pods", "Board games", "Food service"],
     crowdLevel: "Quiet",
     heroTone: "from-orange-500 via-zinc-950 to-fuchsia-500",
+    imageUrl:
+      "https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=900&q=80",
   },
 ];
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { AuthShell } from "@/features/auth/components/auth-shell";
-import { ResetPasswordForm } from "@/features/auth/components/reset-password-form";
+import { ResetPasswordForm } from "@/lib/lazy/feature-views";
 
 export const metadata: Metadata = {
   title: "Reset Password",
