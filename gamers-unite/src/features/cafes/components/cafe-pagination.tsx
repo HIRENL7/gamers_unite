@@ -3,7 +3,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { clampPage } from "@/features/cafes/utils/cafe-utils";
+import { clampPage } from "@/lib/utils";
 
 type CafePaginationProps = {
   page: number;

@@ -1,7 +1,3 @@
-export function clampReviewPage(page: number, totalPages: number) {
-  return Math.min(Math.max(page, 1), Math.max(totalPages, 1));
-}
-
 export function formatReviewDate(date: string) {
   return new Intl.DateTimeFormat("en", {
     day: "numeric",

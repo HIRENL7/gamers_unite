@@ -3,7 +3,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { clampReviewPage } from "@/features/reviews/utils/review-utils";
+import { clampPage } from "@/lib/utils";
 
 type ReviewPaginationProps = {
   page: number;
@@ -20,7 +20,7 @@ function ReviewPagination({
   totalPages,
   onPageChange,
 }: ReviewPaginationProps) {
-  const safePage = clampReviewPage(page, totalPages);
+  const safePage = clampPage(page, totalPages);
   const start = totalItems === 0 ? 0 : (safePage - 1) * pageSize + 1;
   const end = Math.min(safePage * pageSize, totalItems);
 

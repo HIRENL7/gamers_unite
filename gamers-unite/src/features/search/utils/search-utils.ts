@@ -100,11 +100,3 @@ export function searchFiltersToParams(filters: SearchFilters) {
 
   return params;
 }
-
-export function getResultTypeLabel(type: SearchTypeFilter) {
-  if (type === "all") {
-    return "All";
-  }
-
-  return type.charAt(0).toUpperCase() + type.slice(1);
-}

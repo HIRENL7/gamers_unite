@@ -4,7 +4,7 @@ import type {
   ReviewListParams,
   ReviewListResponse,
 } from "@/features/reviews/types/review";
-import { clampReviewPage } from "@/features/reviews/utils/review-utils";
+import { clampPage } from "@/lib/utils";
 
 const mockReviews: Review[] = [
   {
@@ -145,7 +145,7 @@ export async function getReviews({
 
   const totalItems = mockReviews.length;
   const totalPages = Math.ceil(totalItems / pageSize);
-  const safePage = clampReviewPage(page, totalPages);
+  const safePage = clampPage(page, totalPages);
   const start = (safePage - 1) * pageSize;
   const response = {
     reviews: mockReviews.slice(start, start + pageSize),

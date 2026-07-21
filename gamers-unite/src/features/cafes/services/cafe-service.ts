@@ -7,7 +7,7 @@ import type {
   CafeListParams,
   CafeListResponse,
 } from "@/features/cafes/types/cafe";
-import { clampPage } from "@/features/cafes/utils/cafe-utils";
+import { clampPage } from "@/lib/utils";
 
 const mockCafes: Cafe[] = [
   {
