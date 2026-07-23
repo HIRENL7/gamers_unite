@@ -2,6 +2,7 @@
 
 import { Send } from "lucide-react";
 import * as React from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,12 +12,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Rating } from "@/features/reviews/components/rating";
+import { createReview } from "@/features/reviews/services/review-service";
 import { validateReviewForm } from "@/features/reviews/schemas/review.schema";
 import type {
   ReviewFormErrors,
   ReviewFormValues,
 } from "@/features/reviews/types/review";
-import { getInitials } from "@/features/reviews/utils/review-utils";
+import { queryKeys } from "@/services/query/keys";
+import { ApiError } from "@/services/axios/error";
+import { useAuthStore } from "@/store/auth-store";
 
 const initialFormValues: ReviewFormValues = {
   cafeName: "",
@@ -28,21 +32,36 @@ const initialFormValues: ReviewFormValues = {
 };
 
 function CommentForm() {
+  const queryClient = useQueryClient();
+  const user = useAuthStore((state) => state.user);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const [values, setValues] = React.useState(initialFormValues);
   const [errors, setErrors] = React.useState<ReviewFormErrors>({});
   const [status, setStatus] = React.useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+  React.useEffect(() => {
+    if (user?.name) {
+      setValues((current) => ({ ...current, authorName: user.name }));
+    }
+  }, [user?.name]);
 
   function updateField<TKey extends keyof ReviewFormValues>(
     key: TKey,
-    value: ReviewFormValues[TKey]
+    value: ReviewFormValues[TKey],
   ) {
     setValues((current) => ({ ...current, [key]: value }));
     setErrors((current) => ({ ...current, [key]: undefined }));
     setStatus(null);
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (!isAuthenticated) {
+      setStatus("Log in to publish a review.");
+      return;
+    }
 
     const validation = validateReviewForm(values);
 
@@ -52,13 +71,26 @@ function CommentForm() {
       return;
     }
 
+    setIsSubmitting(true);
     setErrors({});
-    setStatus(
-      `Mock review staged for ${values.cafeName.trim()} by ${getInitials(
-        values.authorName
-      )}.`
-    );
-    setValues(initialFormValues);
+
+    try {
+      await createReview(values);
+      await queryClient.invalidateQueries({ queryKey: queryKeys.reviews.lists() });
+      setStatus(`Review published for ${values.cafeName.trim()}.`);
+      setValues({
+        ...initialFormValues,
+        authorName: user?.name ?? "",
+      });
+    } catch (error) {
+      const message =
+        error instanceof ApiError
+          ? error.message
+          : "Unable to publish your review right now.";
+      setStatus(message);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -66,11 +98,13 @@ function CommentForm() {
       <CardHeader>
         <CardTitle>Write a review</CardTitle>
         <p className="text-sm text-muted-foreground">
-          This form validates locally and keeps the submission in mock mode.
+          {isAuthenticated
+            ? "Share your cafe experience with the community."
+            : "Log in to publish a review to the live API."}
         </p>
       </CardHeader>
       <CardContent>
-        <form className="grid gap-4" noValidate onSubmit={handleSubmit}>
+        <form className="flex flex-col gap-4" noValidate onSubmit={handleSubmit}>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field
               id="review-cafe"
@@ -88,10 +122,10 @@ function CommentForm() {
             />
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-[1fr_14rem]">
+          <div className="flex flex-col gap-4">
             <Field
               id="review-author"
-              label="Your name"
+              label="Your name" 
               value={values.authorName}
               error={errors.authorName}
               onChange={(value) => updateField("authorName", value)}
@@ -143,11 +177,11 @@ function CommentForm() {
               role="status"
               aria-live="polite"
             >
-              {status ?? "Required fields are validated before staging."}
+              {status ?? "Required fields are validated before publishing."}
             </p>
-            <Button type="submit">
+            <Button type="submit" disabled={isSubmitting}>
               <Send aria-hidden="true" />
-              Submit mock review
+              Publish review
             </Button>
           </div>
         </form>

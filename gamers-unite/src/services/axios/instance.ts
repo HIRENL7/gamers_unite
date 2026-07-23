@@ -7,6 +7,7 @@ export const axiosInstance = applyInterceptors(
   axios.create({
     baseURL: env.apiBaseUrl || undefined,
     timeout: env.apiTimeout,
+    withCredentials: true,
     headers: {
       "Content-Type": "application/json",
     },

@@ -43,8 +43,11 @@ function SearchView() {
   );
   const searchQuery = useSearchResults(queryFilters);
   const results = React.useMemo(
-    () => searchQuery.data?.pages.flatMap((page) => page.results) ?? [],
-    [searchQuery.data?.pages]
+    () =>
+      searchQuery.data?.pages.flatMap((page) =>
+        Array.isArray(page.results) ? page.results : [],
+      ) ?? [],
+    [searchQuery.data?.pages],
   );
   const totalItems = searchQuery.data?.pages[0]?.totalItems ?? 0;
 

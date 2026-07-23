@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [development, main]
+  pull_request:
+    branches: [development, main]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile || pnpm install
+
+      - name: Lint and type-check frontend
+        run: pnpm --filter gamers-unite lint && pnpm --filter gamers-unite type-check
+
+      - name: Type-check backend
+        run: pnpm --filter backend type-check
+
+      - name: Build frontend
+        run: pnpm --filter gamers-unite build
+
+      - name: Build backend
+        run: pnpm --filter backend build

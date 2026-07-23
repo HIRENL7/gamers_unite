@@ -3,15 +3,21 @@
 import { UserPlus } from "lucide-react";
 import * as React from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { AuthField } from "@/features/auth/components/auth-field";
 import { zodResolver } from "@/features/auth/components/zod-resolver";
 import { registerSchema } from "@/features/auth/schemas/auth.schema";
 import type { RegisterFormValues } from "@/features/auth/types/auth";
+import { ApiError } from "@/services/axios/error";
+import { useAuthStore } from "@/store/auth-store";
 
 function RegisterForm() {
+  const router = useRouter();
+  const registerAccount = useAuthStore((state) => state.register);
   const [status, setStatus] = React.useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   const {
     formState: { errors, isSubmitting },
     handleSubmit,
@@ -27,8 +33,22 @@ function RegisterForm() {
     },
   });
 
-  function onSubmit(values: RegisterFormValues) {
-    setStatus(`Mock account staged for ${values.name}.`);
+  async function onSubmit(values: RegisterFormValues) {
+    setErrorMessage(null);
+    setStatus(null);
+
+    try {
+      await registerAccount(values);
+      setStatus(`Account created for ${values.name}.`);
+      router.push("/");
+      router.refresh();
+    } catch (error) {
+      const message =
+        error instanceof ApiError
+          ? error.message
+          : "Unable to create your account right now.";
+      setErrorMessage(message);
+    }
   }
 
   return (
@@ -76,7 +96,7 @@ function RegisterForm() {
             className="mt-0.5 size-4 rounded border"
             {...register("acceptTerms")}
           />
-          <span>I agree to the mock community terms.</span>
+          <span>I agree to the community terms.</span>
         </span>
         {errors.acceptTerms ? (
           <span
@@ -89,12 +109,18 @@ function RegisterForm() {
         ) : null}
       </label>
 
+      {errorMessage ? (
+        <p className="text-sm text-destructive" role="alert">
+          {errorMessage}
+        </p>
+      ) : null}
+
       <p
         className="text-sm text-muted-foreground"
         role="status"
         aria-live="polite"
       >
-        {status ?? "Registration stays local for this phase."}
+        {status ?? "Create your GameSunite account."}
       </p>
 
       <Button type="submit" disabled={isSubmitting}>

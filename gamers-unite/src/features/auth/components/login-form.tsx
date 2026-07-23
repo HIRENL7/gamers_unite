@@ -4,15 +4,21 @@ import Link from "next/link";
 import { LogIn } from "lucide-react";
 import * as React from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { AuthField } from "@/features/auth/components/auth-field";
 import { zodResolver } from "@/features/auth/components/zod-resolver";
 import { loginSchema } from "@/features/auth/schemas/auth.schema";
 import type { LoginFormValues } from "@/features/auth/types/auth";
+import { ApiError } from "@/services/axios/error";
+import { useAuthStore } from "@/store/auth-store";
 
 function LoginForm() {
+  const router = useRouter();
+  const login = useAuthStore((state) => state.login);
   const [status, setStatus] = React.useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   const {
     formState: { errors, isSubmitting },
     handleSubmit,
@@ -26,8 +32,20 @@ function LoginForm() {
     },
   });
 
-  function onSubmit(values: LoginFormValues) {
-    setStatus(`Mock login ready for ${values.email}.`);
+  async function onSubmit(values: LoginFormValues) {
+    setErrorMessage(null);
+    setStatus(null);
+
+    try {
+      await login(values);
+      setStatus(`Welcome back, ${values.email}.`);
+      router.push("/");
+      router.refresh();
+    } catch (error) {
+      const message =
+        error instanceof ApiError ? error.message : "Unable to log in right now.";
+      setErrorMessage(message);
+    }
   }
 
   return (
@@ -65,12 +83,18 @@ function LoginForm() {
         </Link>
       </div>
 
+      {errorMessage ? (
+        <p className="text-sm text-destructive" role="alert">
+          {errorMessage}
+        </p>
+      ) : null}
+
       <p
         className="text-sm text-muted-foreground"
         role="status"
         aria-live="polite"
       >
-        {status ?? "No backend call will be made."}
+        {status ?? "Sign in with your GameSunite account."}
       </p>
 
       <Button type="submit" disabled={isSubmitting}>

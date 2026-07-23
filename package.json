@@ -1,0 +1,15 @@
+{
+  "name": "gamesunite-monorepo",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --parallel --filter gamers-unite --filter backend dev",
+    "dev:web": "pnpm --filter gamers-unite dev",
+    "dev:api": "pnpm --filter backend dev",
+    "build": "pnpm --filter gamers-unite build && pnpm --filter backend build",
+    "lint": "pnpm --filter gamers-unite lint && pnpm --filter backend lint",
+    "type-check": "pnpm --filter gamers-unite type-check && pnpm --filter backend type-check",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "seed": "pnpm --filter backend seed"
+  }
+}

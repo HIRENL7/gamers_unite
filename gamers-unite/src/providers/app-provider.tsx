@@ -2,6 +2,7 @@
 
 import * as React from "react";
 
+import { AuthProvider } from "@/providers/auth-provider";
 import { QueryProvider } from "@/providers/query-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
 
@@ -17,7 +18,9 @@ function AppProvider({ children }: AppProviderProps) {
       enableSystem
       disableTransitionOnChange
     >
-      <QueryProvider>{children}</QueryProvider>
+      <QueryProvider>
+        <AuthProvider>{children}</AuthProvider>
+      </QueryProvider>
     </ThemeProvider>
   );
 }
