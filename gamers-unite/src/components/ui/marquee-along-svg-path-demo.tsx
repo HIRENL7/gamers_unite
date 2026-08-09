@@ -1,6 +1,7 @@
 "use client"
 
 import MarqueeAlongSvgPath from "@/components/ui/marquee-along-svg-path"
+import { cn } from "@/lib/utils"
 
 const path =
   "M1 209.434C58.5872 255.935 387.926 325.938 482.583 209.434C600.905 63.8051 525.516 -43.2211 427.332 19.9613C329.149 83.1436 352.902 242.723 515.041 267.302C644.752 286.966 943.56 181.94 995 156.5"
@@ -65,9 +66,21 @@ const images: MarqueeImage[] = [
   },
 ]
 
-export default function MarqueeAlongSvgPathDemo() {
+interface MarqueeAlongSvgPathDemoProps {
+  className?: string
+}
+
+export default function MarqueeAlongSvgPathDemo({
+  className,
+}: MarqueeAlongSvgPathDemoProps) {
   return (
-    <div className="flex h-dvh w-dvw items-center justify-center bg-zinc-950">
+    <div
+      className={cn(
+        "relative h-full min-h-[280px] w-full overflow-hidden",
+        className
+      )}
+      aria-label="Gaming moments along a path"
+    >
       <MarqueeAlongSvgPath
         path={path}
         viewBox="0 0 996 330"
@@ -76,14 +89,14 @@ export default function MarqueeAlongSvgPathDemo() {
         draggable
         repeat={2}
         dragSensitivity={0.1}
-        className="h-full w-full scale-105"
+        className="h-full w-full"
         responsive
         grabCursor
       >
         {images.map((image) => (
           <div
             key={image.src}
-            className="h-full w-14 duration-300 ease-in-out hover:scale-150"
+            className="h-20 w-14 overflow-hidden rounded-md shadow-md duration-300 ease-in-out hover:scale-125"
           >
             <img
               src={image.src}

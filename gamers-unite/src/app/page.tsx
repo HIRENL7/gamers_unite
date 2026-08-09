@@ -4,15 +4,12 @@ import {
   ArrowRight,
   CalendarDays,
   Gamepad2,
-  MapPin,
-  Search,
-  Sparkles,
   Star,
   Users,
 } from "lucide-react";
 
 import { Container, Section } from "@/components/layout";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -21,6 +18,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import HomeHeroFuturistic from "@/components/ui/home-hero-futuristic";
 
 export const metadata: Metadata = {
   title: "Find Gaming Cafes, Games, and Reviews",
@@ -91,7 +89,6 @@ export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
       <HeroSection />
-      <SearchSection />
       <FeaturedCafesSection />
       <PopularGamesSection />
       <TopReviewsSection />
@@ -103,7 +100,8 @@ export default function Home() {
 
 function HeroSection() {
   return (
-    <Section className="overflow-hidden border-b bg-[linear-gradient(135deg,#ecfdf5_0%,var(--background)_45%,#fff1f2_100%)] dark:bg-[linear-gradient(135deg,#052e2b_0%,var(--background)_45%,#3b0712_100%)]">
+    <Section spacing="none" className="overflow-hidden border-b p-0">
+      {/*
       <Container className="grid min-h-[calc(100svh-8rem)] items-center gap-10 py-10 lg:grid-cols-[1fr_0.9fr]">
         <div className="animate-enter max-w-3xl">
           <p className="inline-flex items-center gap-2 rounded-full border bg-background/80 px-3 py-1 text-sm font-medium text-muted-foreground shadow-sm">
@@ -170,57 +168,16 @@ function HeroSection() {
           </div>
         </div>
       </Container>
+      */}
+      <HomeHeroFuturistic
+        title="Find Your Session"
+        subtitle="Discover gaming cafes, compare setups, and read reviews from players like you."
+      />
     </Section>
   );
 }
 
-function SearchSection() {
-  return (
-    <Section spacing="sm" className="border-b bg-muted/30">
-      <Container>
-        <form
-          action="/search"
-          className="animate-enter grid gap-3 rounded-lg border bg-background p-3 shadow-sm md:grid-cols-[1fr_1fr_auto]"
-          role="search"
-        >
-          <label className="grid gap-1">
-            <span className="text-sm font-medium">Search cafes or games</span>
-            <span className="flex h-11 items-center gap-2 rounded-md border bg-background px-3">
-              <Search
-                aria-hidden="true"
-                className="size-4 text-muted-foreground"
-              />
-              <input
-                name="q"
-                type="search"
-                placeholder="Try Valorant, console lounge, Koramangala"
-                className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-              />
-            </span>
-          </label>
-          <label className="grid gap-1">
-            <span className="text-sm font-medium">Location</span>
-            <span className="flex h-11 items-center gap-2 rounded-md border bg-background px-3">
-              <MapPin
-                aria-hidden="true"
-                className="size-4 text-muted-foreground"
-              />
-              <input
-                name="location"
-                type="search"
-                placeholder="Neighborhood or city"
-                className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-              />
-            </span>
-          </label>
-          <Button className="self-end" size="lg" type="submit">
-            Search
-          </Button>
-        </form>
-      </Container>
-    </Section>
-  );
-}
+
 
 function FeaturedCafesSection() {
   return (
