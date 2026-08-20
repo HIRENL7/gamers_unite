@@ -1,0 +1,73 @@
+@keyframes hero-futuristic-fade-in {
+  0% {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateY(1.25rem);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-futuristic-fade-in-subtitle {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(0.75rem);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-futuristic-search-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(1rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.hero-futuristic-root .fade-in {
+  animation: hero-futuristic-fade-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-futuristic-root .fade-in-subtitle {
+  animation: hero-futuristic-fade-in-subtitle 0.9s cubic-bezier(0.22, 1, 0.36, 1)
+    forwards;
+}
+
+.hero-futuristic-root .hero-search-form {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  z-index: 70;
+  opacity: 0;
+  transform: translateX(-50%);
+  animation: hero-futuristic-search-in 0.8s ease forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-futuristic-root .fade-in,
+  .hero-futuristic-root .fade-in-subtitle,
+  .hero-futuristic-root .hero-search-form {
+    animation: none;
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+
+  .hero-futuristic-root .hero-search-form {
+    transform: translateX(-50%);
+  }
+}

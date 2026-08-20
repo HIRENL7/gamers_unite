@@ -5,8 +5,9 @@ const protectedRoutes = ["/profile", "/favorites"];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  console.log(pathname, request.nextUrl,'pathname');
   const requiresAuth = protectedRoutes.some((route) => pathname.startsWith(route));
-
+console.log(requiresAuth,'requiresAuth');
   if (!requiresAuth) {
     return NextResponse.next();
   }
