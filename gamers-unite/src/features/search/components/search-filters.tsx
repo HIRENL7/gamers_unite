@@ -3,15 +3,15 @@
 import { SlidersHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import type { SearchFilters } from "@/features/search/types/search";
+import type { SearchFilters as SearchFiltersState } from "@/features/search/types/search";
 import {
   defaultSearchFilters,
   searchTypeOptions,
 } from "@/features/search/utils/search-utils";
 
 type SearchFiltersProps = {
-  filters: SearchFilters;
-  onChange: (filters: SearchFilters) => void;
+  filters: SearchFiltersState;
+  onChange: (filters: SearchFiltersState) => void;
 };
 
 const ratingOptions = [
@@ -22,7 +22,7 @@ const ratingOptions = [
 ];
 
 function SearchFilters({ filters, onChange }: SearchFiltersProps) {
-  function updateFilter(nextFilters: Partial<SearchFilters>) {
+  function updateFilter(nextFilters: Partial<SearchFiltersState>) {
     onChange({ ...filters, ...nextFilters });
   }
 

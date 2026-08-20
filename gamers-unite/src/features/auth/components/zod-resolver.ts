@@ -1,13 +1,13 @@
-import type { FieldErrors, Resolver } from "react-hook-form";
+import type { FieldErrors, FieldValues, Resolver } from "react-hook-form";
 import type { z } from "zod";
 
 function getPathKey(path: PropertyKey[]) {
   return path.join(".");
 }
 
-export function zodResolver<TSchema extends z.ZodType>(
-  schema: TSchema
-): Resolver<z.input<TSchema>, unknown, z.output<TSchema>> {
+export function zodResolver<Input extends FieldValues, Output = Input>(
+  schema: z.ZodType<Output, Input>
+): Resolver<Input, unknown, Output> {
   return async (values) => {
     const result = schema.safeParse(values);
 
@@ -30,8 +30,8 @@ export function zodResolver<TSchema extends z.ZodType>(
     }, {});
 
     return {
-      values: {},
-      errors: errors as FieldErrors<z.input<TSchema>>,
+      values: {} as Record<string, never>,
+      errors: errors as FieldErrors<Input>,
     };
   };
 }
